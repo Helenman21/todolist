@@ -10,12 +10,17 @@ export type TasksPropsType = {
 type TodoListPropsType = {
 	title: String
 	tasks: Array<TasksPropsType>
+	onClickDeleteTask: (taskId: number) => void
 }
 
-export const TodoList: FC<TodoListPropsType> = ({title, tasks}) => {
+export const TodoList: FC<TodoListPropsType> = ({title, tasks, onClickDeleteTask}) => {
 		const tasksList: Array<JSX.Element> = tasks.map( task => {
 			return(
-				<li key={task.id}><input type="checkbox" checked={task.isDone}  /> <span>{task.title}</span></li>
+				<li key={task.id}>
+					<input type="checkbox" checked={task.isDone}  /> 
+					<span>{task.title}</span>
+					<Button title="Х" onclickHandler={()=> onClickDeleteTask(task.id)} />
+				</li>
 			)
 		})
 		return (
@@ -29,9 +34,9 @@ export const TodoList: FC<TodoListPropsType> = ({title, tasks}) => {
                    {tasksList}
                 </ul>
                 <div>
-                    <Button title="All" />
-                    <Button title="Active"/>
-                    <Button title="Completed"/>
+                    {/* <Button title="All" onclickHandler={() => onclickHandler("All")}/> */}
+                    {/* <Button title="Active" onclickHandler={() => onclickHandler("Active")}/> */}
+                    {/* <Button title="Completed" onclickHandler={() => onclickHandler("Active")}/> */}
                 </div>
 
             </div>

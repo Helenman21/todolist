@@ -2,10 +2,11 @@ import React, {FC} from "react";
 
 type ButtonPropsType = {
 	title: string
+	onclickHandler?: () => void
 }
 
-export const Button:FC<ButtonPropsType> = ({title}) => {
+export const Button:FC<ButtonPropsType> = ({title, onclickHandler}) => {
 	return(
-		<button>{title}</button>
+		<button onClick={onclickHandler} >{title}</button>
 	)
 }
