@@ -1,30 +1,44 @@
-import { type } from "@testing-library/user-event/dist/type"
 import React, { FC, useState } from "react"
 import { Button } from "./Button"
+import { FuLLInput } from "./FullInput"
 
 export type TasksPropsType = {
 	id: number
 	title: string
 	isDone: boolean
 }
+type TaskStatusFilterPropsType = "All" | "Active" | "Completed"
 
 type TodoListPropsType = {
 	title: String
 	tasks: Array<TasksPropsType>
 	onClickDeleteTask: (taskId: number) => void
+	addTask: (task: string) => void
+	valueInput: string
+	onChangeInputHandler: (titleValueInput: string) => void
 }
-type TaskStatusPropsType = "All" | "Active" | "Completed"
 
-export const TodoList: FC<TodoListPropsType> = ({ title, tasks, onClickDeleteTask }) => {
-	const [statusTask, setStatusTask] = useState("All");
 
-	const changeShowTask = (status: TaskStatusPropsType) => {setStatusTask(status)};
+export const TodoList: FC<TodoListPropsType> = ({ title, 
+																  tasks, 
+																  onClickDeleteTask, 
+																  addTask, 
+																  valueInput, 
+																  onChangeInputHandler, }) => {
 
+	const [statusTask, setStatusTask] = useState<TaskStatusFilterPropsType>("All");
+
+	const changeShowTask = (status: TaskStatusFilterPropsType) => {setStatusTask(status)};
+	const onClickAddTask = (nameTask: string) => {
+		addTask(nameTask)
+		onChangeInputHandler('')
+	}																
 	const currentTasks = statusTask === "Active" ? tasks.filter(task => !task.isDone) :
 								statusTask === "Completed" ? tasks.filter(task => task.isDone) :
 								tasks;
-								
+	const isCurrentTask = currentTasks.length > 0
 	const tasksList: Array<JSX.Element> = currentTasks.map(task => {
+		
 		return (
 			<li key={task.id}>
 				<input type="checkbox" checked={task.isDone} />
@@ -37,11 +51,12 @@ export const TodoList: FC<TodoListPropsType> = ({ title, tasks, onClickDeleteTas
 		<div className="todo-list-class-name">
 			<h3>{title}</h3>
 			<div>
-				<input />
-				<Button title="+" />
+				<FuLLInput callback={onChangeInputHandler} titleInput={valueInput} />
+				<Button onclickHandler={() => onClickAddTask(valueInput)} title={"+"} />
 			</div>
 			<ul>
-				{tasksList}
+				{isCurrentTask && tasksList}
+				{!isCurrentTask && <span>Таких задач нет!</span>}
 			</ul>
 			<div>
 				<Button title="All" onclickHandler={() => changeShowTask("All")} />
