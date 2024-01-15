@@ -3,7 +3,7 @@ import { Button } from "./Button"
 import { FuLLInput } from "./FullInput"
 
 export type TasksPropsType = {
-	id: number
+	id: string
 	title: string
 	isDone: boolean
 }
@@ -12,7 +12,7 @@ type TaskStatusFilterPropsType = "All" | "Active" | "Completed"
 type TodoListPropsType = {
 	title: String
 	tasks: Array<TasksPropsType>
-	onClickDeleteTask: (taskId: number) => void
+	onClickDeleteTask: (taskId: string) => void
 	addTask: (task: string) => void
 	valueInput: string
 	onChangeInputHandler: (titleValueInput: string) => void
