@@ -24,21 +24,25 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 																  onClickDeleteTask, 
 																  addTask, 
 																  valueInput, 
-																  onChangeInputHandler, }) => {
+																  onChangeInputHandler 
+																}) => {
 
 	const [statusTask, setStatusTask] = useState<TaskStatusFilterPropsType>("All");
 
 	const changeShowTask = (status: TaskStatusFilterPropsType) => {setStatusTask(status)};
-	const onClickAddTask = (nameTask: string) => {
-		addTask(nameTask)
+	const onClickAddTask = () => {
+		addTask(valueInput)
 		onChangeInputHandler('')
-	}																
+	}	
+	const onKeyPressAddTask = () => {
+		addTask(valueInput)
+		onChangeInputHandler('')
+	}														
 	const currentTasks = statusTask === "Active" ? tasks.filter(task => !task.isDone) :
 								statusTask === "Completed" ? tasks.filter(task => task.isDone) :
 								tasks;
 	const isCurrentTask = currentTasks.length > 0
 	const tasksList: Array<JSX.Element> = currentTasks.map(task => {
-		
 		return (
 			<li key={task.id}>
 				<input type="checkbox" checked={task.isDone} />
@@ -51,8 +55,11 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 		<div className="todo-list-class-name">
 			<h3>{title}</h3>
 			<div>
-				<FuLLInput callback={onChangeInputHandler} titleInput={valueInput} />
-				<Button onclickHandler={() => onClickAddTask(valueInput)} title={"+"} />
+				<FuLLInput callback={onChangeInputHandler} 
+							  onKeyPressAddTask = {onKeyPressAddTask} 
+							  titleInput={valueInput}
+				 />
+				<Button onclickHandler={onClickAddTask} title={"+"} />
 			</div>
 			<ul>
 				{isCurrentTask && tasksList}
