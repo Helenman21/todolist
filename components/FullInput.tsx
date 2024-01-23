@@ -5,9 +5,12 @@ type FullInputPropsType = {
 	callback: (valueInput: string) => void
 	titleInput: string
 	onKeyPressAddTask?: () => void
+	classInput: string
+	
 }
 
-export const FuLLInput: FC<FullInputPropsType> = ({callback, titleInput, onKeyPressAddTask}) => {
+export const FuLLInput: FC<FullInputPropsType> = ({callback, titleInput, onKeyPressAddTask, classInput}) => {
+	
 	const onChangeInputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		callback(event.currentTarget.value)
 	}
@@ -18,7 +21,7 @@ export const FuLLInput: FC<FullInputPropsType> = ({callback, titleInput, onKeyPr
 	}
 	return(
 		<>
-			<input onChange={onChangeInputHandler} onKeyDown = {onKeyPressHandler} value={titleInput} />
+			<input onChange={onChangeInputHandler} onKeyDown = {onKeyPressHandler} value={titleInput} className={classInput} />
 		</>
 	)
 }

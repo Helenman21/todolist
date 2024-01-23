@@ -12,3 +12,31 @@
 	background-color: burlywood;
 	padding: 15px;
 }
+.task {
+	font-weight: bold;
+}
+.task-done {
+	text-decoration: line-through;
+	opacity: 0.5;
+}
+.button {
+	background-color: azure;
+}
+.filter-active-button {
+	background-color: chartreuse;
+	border: 2px solid chartreuse;
+	border-radius: 3px;
+	font-weight: bold;
+}
+.buttons-filter-block {
+	display: flex;
+	gap: 5px;
+}
+
+.task-input-error{
+	border: 2px solid red;
+	outline: none;
+}
+.disable-button {
+	opacity: 0.5;
+}

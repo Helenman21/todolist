@@ -12,11 +12,7 @@ function App() {
     { id: v1(), title: "GraphQL", isDone: false },
   ]);
   
-  const [valueInput, setValueInput] = useState("");
-
-  const onChangeInputHandler = (titleValueInput: string) => {
-		setValueInput(titleValueInput)
-  }
+ 
   
   const deleteTask = (taskId: string) => {
     const newArray: Array<TasksPropsType> = tasks.filter(
@@ -41,8 +37,6 @@ function App() {
         tasks={tasks}
         onClickDeleteTask={deleteTask}
         addTask={addTask}
-		  valueInput={valueInput}
-		  onChangeInputHandler={onChangeInputHandler}
 		  changeStatusTask={changeStatusTask}
       />
     </div>
