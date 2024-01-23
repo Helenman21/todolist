@@ -24,10 +24,16 @@ function App() {
     );
     setTask(newArray);
   };
+
   const addTask = (task: string) => {
     const newTask = { id: v1(), title: task, isDone: false };
     setTask([...tasks, newTask]);
   };
+
+  const changeStatusTask = (taskId: string, isDone: boolean) => {
+	const newStateTasks = tasks.map(task => task.id === taskId?  {...task, isDone} : task)
+	setTask(newStateTasks)
+  }
   return (
     <div className="App">
       <TodoList
@@ -37,6 +43,7 @@ function App() {
         addTask={addTask}
 		  valueInput={valueInput}
 		  onChangeInputHandler={onChangeInputHandler}
+		  changeStatusTask={changeStatusTask}
       />
     </div>
   );

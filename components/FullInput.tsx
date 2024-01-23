@@ -18,7 +18,7 @@ export const FuLLInput: FC<FullInputPropsType> = ({callback, titleInput, onKeyPr
 	}
 	return(
 		<>
-			<input onChange={onChangeInputHandler} onKeyPress = {onKeyPressHandler} value={titleInput} />
+			<input onChange={onChangeInputHandler} onKeyDown = {onKeyPressHandler} value={titleInput} />
 		</>
 	)
 }
