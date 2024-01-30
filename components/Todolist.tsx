@@ -9,20 +9,21 @@ export type TasksPropsType = {
 	isDone: boolean
 }
 
-enum TaskStatusEnum {
+export enum TaskStatusEnum {
 	allFilter = "All",
 	activeFilter = "Active",
 	completedFilter = "Completed"
 };
 
-type TaskStatusFilterType = TaskStatusEnum.allFilter | TaskStatusEnum.activeFilter | TaskStatusEnum.completedFilter
+export type TaskStatusFilterType = TaskStatusEnum.allFilter | TaskStatusEnum.activeFilter | TaskStatusEnum.completedFilter
 
 type TodoListPropsType = {
 	title: String
 	tasks: Array<TasksPropsType>
-	onClickDeleteTask: (taskId: string) => void
+	onClickDeleteTask: (todolistId: string, taskId: string) => void
 	addTask: (task: string) => void
 	changeStatusTask: (taskId: string, isDone: boolean) => void
+	todolistId: string
 }
 
 
@@ -30,7 +31,8 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 	tasks,
 	onClickDeleteTask,
 	addTask,
-	changeStatusTask
+	changeStatusTask,
+	todolistId
 }) => {
 
 	const [statusTask, setStatusTask] = useState<TaskStatusFilterType>(TaskStatusEnum.allFilter);
@@ -61,6 +63,7 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 	const addNewTask = () => {
 		const trimmedTaskTitle = valueInput.trim()
 		if (trimmedTaskTitle) {
+			console.log(trimmedTaskTitle)
 			addTask(trimmedTaskTitle)
 			onChangeInputHandler('')
 		} else {	
@@ -97,7 +100,7 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 	
 
 	const tasksList: Array<JSX.Element> = currentTasks.map(task => {
-		const onDeleteTaskHandler = () => { onClickDeleteTask(task.id) };
+		const onDeleteTaskHandler = () => { onClickDeleteTask(todolistId, task.id) };
 		const onChangeStatuseTaskHandler = (e: React.ChangeEvent<HTMLInputElement>) => { changeStatusTask(task.id, e.currentTarget.checked) }
 		return (
 			<li key={task.id}>
