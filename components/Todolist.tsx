@@ -21,8 +21,8 @@ type TodoListPropsType = {
 	title: String
 	tasks: Array<TasksPropsType>
 	onClickDeleteTask: (todolistId: string, taskId: string) => void
-	addTask: (task: string) => void
-	changeStatusTask: (taskId: string, isDone: boolean) => void
+	addTask: (todolistId: string, task: string) => void
+	changeStatusTask: (todolistId: string, taskId: string, isDone: boolean) => void
 	todolistId: string
 }
 
@@ -64,7 +64,7 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 		const trimmedTaskTitle = valueInput.trim()
 		if (trimmedTaskTitle) {
 			console.log(trimmedTaskTitle)
-			addTask(trimmedTaskTitle)
+			addTask(todolistId, trimmedTaskTitle)
 			onChangeInputHandler('')
 		} else {	
 			setError(true)
@@ -101,7 +101,7 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 
 	const tasksList: Array<JSX.Element> = currentTasks.map(task => {
 		const onDeleteTaskHandler = () => { onClickDeleteTask(todolistId, task.id) };
-		const onChangeStatuseTaskHandler = (e: React.ChangeEvent<HTMLInputElement>) => { changeStatusTask(task.id, e.currentTarget.checked) }
+		const onChangeStatuseTaskHandler = (e: React.ChangeEvent<HTMLInputElement>) => { changeStatusTask(todolistId, task.id, e.currentTarget.checked) }
 		return (
 			<li key={task.id}>
 				<input type="checkbox" checked={task.isDone} onChange={onChangeStatuseTaskHandler} />

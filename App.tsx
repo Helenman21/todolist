@@ -39,14 +39,14 @@ function App() {
     setTasks({...tasks, [todolistId]: newArray});
   };
 
-  const addTask = (task: string) => {
-   //  const newTask = { id: v1(), title: task, isDone: false };
-   //  setTask([...tasks, newTask]);
+  const addTask = (todolistId: string,task: string) => {
+    const newTask = { id: v1(), title: task, isDone: false };
+    setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]});
   };
 
-  const changeStatusTask = (taskId: string, isDone: boolean) => {
+  const changeStatusTask = (todolistId: string,taskId: string, isDone: boolean) => {
 	// const newStateTasks = tasks.map(task => task.id === taskId?  {...task, isDone} : task)
-	// setTask(newStateTasks)
+	setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId?  {...task, isDone} : task) })
   }
   return (
     <div className="App">
