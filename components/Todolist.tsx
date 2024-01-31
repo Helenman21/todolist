@@ -24,6 +24,7 @@ type TodoListPropsType = {
 	addTask: (todolistId: string, task: string) => void
 	changeStatusTask: (todolistId: string, taskId: string, isDone: boolean) => void
 	todolistId: string
+	removeTodoList: (todolistId: string) => void
 }
 
 
@@ -32,7 +33,8 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 	onClickDeleteTask,
 	addTask,
 	changeStatusTask,
-	todolistId
+	todolistId,
+	removeTodoList
 }) => {
 
 	const [statusTask, setStatusTask] = useState<TaskStatusFilterType>(TaskStatusEnum.allFilter);
@@ -80,6 +82,10 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 		addNewTask()
 	}
 
+	const onRemoveTodoListHandler = () => {
+		removeTodoList(todolistId)
+	}
+	
 	const сhangefilterTasks = (tasks: Array<TasksPropsType>, filter: TaskStatusFilterType) => {
 		switch (filter) {
 			case TaskStatusEnum.activeFilter:
@@ -112,7 +118,10 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 	})
 	return (
 		<div className="todo-list-class-name">
-			<h3>{title}</h3>
+			<h3>
+				{title}
+				<Button onclickHandler={onRemoveTodoListHandler} title={'х'} />
+			</h3>
 			<div>
 				<FuLLInput callback={onChangeInputHandler}
 								onKeyPressAddTask={onKeyPressAddTaskHandler}
