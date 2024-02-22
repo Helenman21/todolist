@@ -46,6 +46,7 @@ function App() {
 
   const changeStatusTask = (todolistId: string,taskId: string, isDone: boolean) => {
 	// const newStateTasks = tasks.map(task => task.id === taskId?  {...task, isDone} : task)
+	console.log('changestatus')
 	setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId?  {...task, isDone} : task) })
   }
 

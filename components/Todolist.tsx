@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react"
 import ts from "typescript"
 import { Button } from "./Button"
+import { CheckboxComponent } from "./Checkbox"
 import { FuLLInput } from "./FullInput"
 
 export type TasksPropsType = {
@@ -96,7 +97,7 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 				return tasks
 		}
 	}
-
+	const onChangeStatuseTaskHandler = (isDone: boolean, taskId: string) => { changeStatusTask(todolistId, taskId, isDone) }
 	
 
 	const currentTasks: Array<TasksPropsType> = сhangefilterTasks(tasks, statusTask) || [];
@@ -107,10 +108,11 @@ export const TodoList: FC<TodoListPropsType> = ({ title,
 
 	const tasksList: Array<JSX.Element> = currentTasks.map(task => {
 		const onDeleteTaskHandler = () => { onClickDeleteTask(todolistId, task.id) };
-		const onChangeStatuseTaskHandler = (e: React.ChangeEvent<HTMLInputElement>) => { changeStatusTask(todolistId, task.id, e.currentTarget.checked) }
+		
 		return (
 			<li key={task.id}>
-				<input type="checkbox" checked={task.isDone} onChange={onChangeStatuseTaskHandler} />
+				{/* <input type="checkbox" checked={task.isDone} onChange={onChangeStatuseTaskHandler} /> */}
+				<CheckboxComponent checked={task.isDone} onChange={(isDone) => {onChangeStatuseTaskHandler(isDone, task.id)}}/>
 				<span className={task.isDone ? "task-done" : "task"} >{task.title}</span>
 				<Button title="Х" onclickHandler={onDeleteTaskHandler} />
 			</li>
